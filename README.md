@@ -1,1 +1,0 @@
-proprietary_vendor_samsung_hero2qltechn
