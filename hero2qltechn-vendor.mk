@@ -70,6 +70,13 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/a530v2_seq.fw2:system/etc/firmware/a530v2_seq.fw2 \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/a530v3_gpmu.fw2:system/etc/firmware/a530v3_gpmu.fw2 \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/a530v3_seq.fw2:system/etc/firmware/a530v3_seq.fw2 \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_10_0.fw:system/etc/firmware/cpp_firmware_v1_10_0.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_1_1.fw:system/etc/firmware/cpp_firmware_v1_1_1.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_1_6.fw:system/etc/firmware/cpp_firmware_v1_1_6.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_2_0.fw:system/etc/firmware/cpp_firmware_v1_2_0.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_4_0.fw:system/etc/firmware/cpp_firmware_v1_4_0.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_6_0.fw:system/etc/firmware/cpp_firmware_v1_6_0.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_8_0.fw:system/etc/firmware/cpp_firmware_v1_8_0.fw \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/ois_fw_dom.bin:system/etc/firmware/ois_fw_dom.bin \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/ois_fw_sec.bin:system/etc/firmware/ois_fw_sec.bin \
     vendor/samsung/hero2qltechn/proprietary/etc/General_cal.acdb:system/etc/General_cal.acdb \
