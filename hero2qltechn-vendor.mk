@@ -141,6 +141,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib64/libloc_api_v02.so:system/lib64/libloc_api_v02.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libmaxflicker.so:system/lib64/libmaxflicker.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libMcClient.so:system/lib64/libMcClient.so \
+    vendor/samsung/hero2qltechn/proprietary/lib64/libMcRegistry.so:system/lib64/libMcRegistry.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libprotobuf-cpp-full.so:system/lib64/libprotobuf-cpp-full.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libqti-iop.so:system/lib64/libqti-iop.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libreference-ril.so:system/lib64/libreference-ril.so \
@@ -177,6 +178,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib/libjpeg.so:system/lib/libjpeg.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libloc_api_v02.so:system/lib/libloc_api_v02.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libMcClient.so:system/lib/libMcClient.so \
+    vendor/samsung/hero2qltechn/proprietary/lib/libMcRegistry.so:system/lib/libMcRegistry.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libmmcamera_interface.so:system/lib/libmmcamera_interface.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libmmjpeg_interface.so:system/lib/libmmjpeg_interface.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libmm-qcamera.so:system/lib/libmm-qcamera.so \
@@ -254,7 +256,6 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libloc_ext.so:system/vendor/lib64/libloc_ext.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libloc_xtra.so:system/vendor/lib64/libloc_xtra.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/liblowi_client.so:system/vendor/lib64/liblowi_client.so \
-    vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libMcRegistry.so:system/vendor/lib64/libMcRegistry.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libmdmdetect.so:system/vendor/lib64/libmdmdetect.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libmdsprpc.so:system/vendor/lib64/libmdsprpc.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libmmcamera2_frame_algorithm.so:system/vendor/lib64/libmmcamera2_frame_algorithm.so \
@@ -439,7 +440,6 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/liblbs_core.so:system/vendor/lib/liblbs_core.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/liblocationservice.so:system/vendor/lib/liblocationservice.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/liblowi_client.so:system/vendor/lib/liblowi_client.so \
-    vendor/samsung/hero2qltechn/proprietary/vendor/lib/libMcRegistry.so:system/vendor/lib/libMcRegistry.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/libmdmdetect.so:system/vendor/lib/libmdmdetect.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/libmdsprpc.so:system/vendor/lib/libmdsprpc.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/libmmcamera2_c2d_module.so:system/vendor/lib/libmmcamera2_c2d_module.so \
