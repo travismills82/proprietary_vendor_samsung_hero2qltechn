@@ -22,6 +22,8 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/ffffffffd00000000000000000000004.tlbin:system/app/mcRegistry/ffffffffd00000000000000000000004.tlbin \
     vendor/samsung/hero2qltechn/proprietary/bin/adsprpcd:system/bin/adsprpcd \
     vendor/samsung/hero2qltechn/proprietary/bin/at_distributor:system/bin/at_distributor \
+    vendor/samsung/hero2qltechn/proprietary/bin/audiod:system/bin/audiod \
+    vendor/samsung/hero2qltechn/proprietary/bin/bintvoutservice:system/bin/bintvoutservice \
     vendor/samsung/hero2qltechn/proprietary/bin/btnvtool:system/bin/btnvtool \
     vendor/samsung/hero2qltechn/proprietary/bin/cnss-daemon:system/bin/cnss-daemon \
     vendor/samsung/hero2qltechn/proprietary/bin/cnss_diag:system/bin/cnss_diag \
@@ -54,12 +56,15 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/bin/radish:system/bin/radish \
     vendor/samsung/hero2qltechn/proprietary/bin/rild:system/bin/rild \
     vendor/samsung/hero2qltechn/proprietary/bin/rmt_storage:system/bin/rmt_storage \
+    vendor/samsung/hero2qltechn/proprietary/bin/sem_daemon:system/bin/sem_daemon \
     vendor/samsung/hero2qltechn/proprietary/bin/sensorservice:system/bin/sensorservice \
     vendor/samsung/hero2qltechn/proprietary/bin/sensors.qcom:system/bin/sensors.qcom \
     vendor/samsung/hero2qltechn/proprietary/bin/servicemanager:system/bin/servicemanager \
     vendor/samsung/hero2qltechn/proprietary/bin/smdexe:system/bin/smdexe \
     vendor/samsung/hero2qltechn/proprietary/bin/tftp_server:system/bin/tftp_server \
     vendor/samsung/hero2qltechn/proprietary/bin/time_daemon:system/bin/time_daemon \
+    vendor/samsung/hero2qltechn/proprietary/bin/usf_proximity:system/bin/usf_proximity \
+    vendor/samsung/hero2qltechn/proprietary/bin/usf_tester:system/bin/usf_tester \
     vendor/samsung/hero2qltechn/proprietary/bin/wlandutservice:system/bin/wlandutservice \
     vendor/samsung/hero2qltechn/proprietary/etc/Bluetooth_cal.acdb:system/etc/Bluetooth_cal.acdb \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/a530_gpmu.fw2:system/etc/firmware/a530_gpmu.fw2 \
@@ -208,6 +213,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib/libxml2.so:system/lib/libxml2.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/bin/pd-mapper:system/vendor/bin/pd-mapper \
     vendor/samsung/hero2qltechn/proprietary/vendor/bin/perfd:system/vendor/bin/perfd \
+    vendor/samsung/hero2qltechn/proprietary/vendor/bin/qseeproxydaemon:system/vendor/bin/qseeproxydaemon \
     vendor/samsung/hero2qltechn/proprietary/vendor/bin/qseeproxysampledaemon:system/vendor/bin/qseeproxysampledaemon \
     vendor/samsung/hero2qltechn/proprietary/vendor/bin/qti:system/vendor/bin/qti \
     vendor/samsung/hero2qltechn/proprietary/vendor/bin/RIDLClient.exe:system/vendor/bin/RIDLClient.exe \
