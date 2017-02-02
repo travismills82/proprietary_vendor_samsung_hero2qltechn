@@ -82,6 +82,8 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_4_0.fw:system/etc/firmware/cpp_firmware_v1_4_0.fw \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_6_0.fw:system/etc/firmware/cpp_firmware_v1_6_0.fw \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/cpp_firmware_v1_8_0.fw:system/etc/firmware/cpp_firmware_v1_8_0.fw \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/dbmd2_va_fw.bin:system/etc/firmware/dbmd2_va_fw.bin \
+    vendor/samsung/hero2qltechn/proprietary/etc/firmware/dbmd4_va_fw.bin:system/etc/firmware/dbmd4_va_fw.bin \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/ois_fw_dom.bin:system/etc/firmware/ois_fw_dom.bin \
     vendor/samsung/hero2qltechn/proprietary/etc/firmware/ois_fw_sec.bin:system/etc/firmware/ois_fw_sec.bin \
     vendor/samsung/hero2qltechn/proprietary/etc/General_cal.acdb:system/etc/General_cal.acdb \
