@@ -143,6 +143,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib64/libcamera_client.so:system/lib64/libcamera_client.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libcamera_metadata.so:system/lib64/libcamera_metadata.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libegis_fp_normal_sensor_test.so:system/lib64/libegis_fp_normal_sensor_test.so \
+    vendor/samsung/hero2qltechn/proprietary/lib64/libgps.utils.so:system/lib64/libgps.utils.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libhr.so:system/lib64/libhr.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libion.so:system/lib64/libion.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libloc_api_v02.so:system/lib64/libloc_api_v02.so \
@@ -166,6 +167,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib64/libuniplugin.so:system/lib64/libuniplugin.so \
     vendor/samsung/hero2qltechn/proprietary/lib64/libxml2.so:system/lib64/libxml2.so \
     vendor/samsung/hero2qltechn/proprietary/lib/hw/fingerprint.default.so:system/lib/hw/fingerprint.default.so \
+    vendor/samsung/hero2qltechn/proprietary/lib/hw/gps.default.so:system/lib/hw/gps.default.so \
     vendor/samsung/hero2qltechn/proprietary/lib/hw/keystore.default.so:system/lib/hw/keystore.default.so \
     vendor/samsung/hero2qltechn/proprietary/lib/hw/keystore.mdfpp.so:system/lib/hw/keystore.mdfpp.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libarccamera.so:system/lib/libarccamera.so \
@@ -179,6 +181,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/lib/libcameraservice_cameramodule.so:system/lib/libcameraservice_cameramodule.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libcameraservice.so:system/lib/libcameraservice.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libdmcFaceEngine.so:system/lib/libdmcFaceEngine.so \
+    vendor/samsung/hero2qltechn/proprietary/lib/libgps.utils.so:system/lib/libgps.utils.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libion.so:system/lib/libion.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libjpega.so:system/lib/libjpega.so \
     vendor/samsung/hero2qltechn/proprietary/lib/libjpegQtable_interface.so:system/lib/libjpegQtable_interface.so \
@@ -314,6 +317,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libulp2.so:system/vendor/lib64/libulp2.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libvoice-svc.so:system/vendor/lib64/libvoice-svc.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/libvpphvx.so:system/vendor/lib64/libvpphvx.so \
+    vendor/samsung/hero2qltechn/proprietary/vendor/lib64/mmi_gps.so:system/vendor/lib64/mmi_gps.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/mmi_sensor.so:system/vendor/lib64/mmi_sensor.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/sensors.oem.so:system/vendor/lib64/sensors.oem.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib64/sensors.ssc.so:system/vendor/lib64/sensors.ssc.so \
@@ -574,6 +578,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/libvpphvx.so:system/vendor/lib/libvpphvx.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/libvqzip.so:system/vendor/lib/libvqzip.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/mediadrm/libwvdrmengine.so:system/vendor/lib/mediadrm/libwvdrmengine.so \
+    vendor/samsung/hero2qltechn/proprietary/vendor/lib/mmi_gps.so:system/vendor/lib/mmi_gps.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/mmi_sensor.so:system/vendor/lib/mmi_sensor.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/rfsa/adsp/libapps_mem_heap.so:system/vendor/lib/rfsa/adsp/libapps_mem_heap.so \
     vendor/samsung/hero2qltechn/proprietary/vendor/lib/rfsa/adsp/libdspCV_skel.so:system/vendor/lib/rfsa/adsp/libdspCV_skel.so \
