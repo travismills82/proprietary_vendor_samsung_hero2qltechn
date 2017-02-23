@@ -1,0 +1,1559 @@
+<!--
+  Copyright (c) 2015 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!--
+CommonChromatixInfo:
+  CommonChromatixInfo is the information about chromatix needed for
+    various use cases.
+  Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+    3A and SW PostProc.
+  Entries in this node are common for all sensor modes.
+
+ResolutionChromatixInfo:
+  ResolutionChromatixInfo is the information about chromatix needed for
+    various use cases.
+  Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+    3A and SW PostProc.
+  Entries in this node are specific to sensor resolution.
+
+ChromatixName:
+  Contains the list of chromatix names for all modules.
+  special_mode_mask:
+    It is the bit mask for special modes, which is used for
+      chromatix selection.
+    Special modes can be any mode that needs a special chromatix.
+    Ex:- scene mode, DZOOM mode, OIS capture mode, flash mode
+    This is applicable for CommonChromatixInfo and
+      ResolutionChromatixInfo.
+    special_mode_mask="0" means none of the special modes are
+      selected.
+  sensor_resolution_index:
+    It is the sensor resolution index for which chromatix libraries
+      will be choosen.
+    It is applicable only in ResolutionChromatixInfo.
+
+ISPCommon :
+  Common tuning library name for ISP
+ISPPreview :
+  Preview tuning library name for ISP
+ISPSnapshot :
+  Snapshot tuning library name for ISP
+CPPCommon :
+  Common tuning library name for CPP
+CPPPreview :
+  Preview tuning library name for CPP
+CPPSnapshot :
+  Snapshot tuning library name for CPP
+CPPLiveshot :
+  Liveshot tuning library name for CPP
+PostProc :
+  Tuning library name for postproc module
+A3Preview :
+  Preview tuning library for 3A
+A3Video :
+  Video tuning library for 3A
+
+Order of Resolution Pick:
+  Assume the current sensor mode is "r" and special mode mask is "s".
+  Chromatix for a module and type is choosen in this order till we find a
+    valid chroamtix file name or else NULL is returned.
+  1) From ResolutionChromatixInfo node for which sensor_resolution_index
+    is "r" and special_mode_mask is "s".
+  2) From CommonChromatixInfo node for which special_mode_mask is "s".
+  3) From ResolutionChromatixInfo node for which sensor_resolution_index
+    is "r" and special_mode_mask is "0".
+  4) From CommonChromatixInfo node for which special_mode_mask is "0".
+  5) NULL is returned if we dont find in any of the above cases.
+
+special_mode_mask values:
+  SENSOR_SPECIAL_MODE_NONE = 0,
+  SENSOR_SPECIAL_MODE_FLASH = 1,
+  SENSOR_SPECIAL_MODE_ZOOM_UPSCALE = 2,
+  SENSOR_SPECIAL_MODE_ZOOM_DOWNSCALE = 4,
+  SENSOR_SPECIAL_MODE_OIS_CAPTURE = 8,
+-->
+
+<ChromatixConfigurationRoot>
+  <CommonChromatixInfo>
+    <ChromatixName special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+  </CommonChromatixInfo>
+  <ResolutionChromatixInfo>
+    <!--Res0 4032x3024 Full-pixel 30fps-->
+    <!--snapShot- video, dual-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Capture ZSL / Video 4:3 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--OIS Capture-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--OIS LLS Capture-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_LLS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_LLS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="OIS_LLS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Merged Capture-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="MERGED_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="MERGED_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="MERGED_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Video UHD 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video FHD 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video HD 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode FHD-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P,PIP">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode HD-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P,PIP">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Fast Motion-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="FAST_MOTION">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdrauto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+    </ChromatixName>
+    <!--Promode Auto-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_auto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Manual-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_manual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Long Exposure
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_LONG">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_LONG,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>-->
+    <!--Offline-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE_US">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE_US,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Panorama-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PANORAMA">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Dual Capture-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_snapshot_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_snapshot_dual.so</CPPVideo>
+    </ChromatixName>
+    <!--Video VGA 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+	  <ISPPreview>libchromatix_imx260_video_vga_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+	  <CPPPreview>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode VGA-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="VIDEO_COLLAGE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="VIDEO_COLLAGE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="VIDEO_COLLAGE,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Virtual Shot-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="MULTIVIEW">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_video_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_video_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="LIVE_BROADCAST">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Food Mode / Rear-cam selfie-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="FOODMODE|ALARM_SHOT|BEAUTY|OUTFOCUS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="0" special_mode_mask="FOODMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="0" special_mode_mask="ALARM_SHOT,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="0" special_mode_mask="BEAUTY,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="0" special_mode_mask="OUTFOCUS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Sports-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="SPORTS_SCENE">
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+	<ChromatixName sensor_resolution_index="0" special_mode_mask="ANIMATED_SCENE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Res1 4032x2268 4k2k 30fps-->
+    <!--snapShot- video, dual-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Capture ZSL / Video 4:3 30-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--OIS Capture-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--OIS LLS Capture-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_LLS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_LLS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="OIS_LLS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Merged Capture-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="MERGED_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="MERGED_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="MERGED_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Video UHD 30-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_UHD">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_UHD,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_UHD,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video FHD 30-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_1080P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_1080P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_1080P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video HD 30-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_720P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_720P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_720P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode FHD-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_1080P,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode HD-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_720P,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Fast Motion-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="FAST_MOTION">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdrauto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+    </ChromatixName>
+    <!--Promode Auto-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_auto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Manual-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_manual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Long Exposure
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_LONG">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_LONG,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    -->
+    <!--Offline-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE_US">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE_US,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Panorama-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PANORAMA">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Dual Capture-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_snapshot_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_snapshot_dual.so</CPPVideo>
+    </ChromatixName>
+    <!--Video VGA 30-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_2_4">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_vga_hdroff.so</ISPPreview>
+	  <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_2_4,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_2_4,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode VGA-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="DIM_2_4,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="VIDEO_COLLAGE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="VIDEO_COLLAGE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="VIDEO_COLLAGE,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Virtual Shot-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="MULTIVIEW">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_video_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_video_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="LIVE_BROADCAST">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Food Mode / Rear-cam selfie-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="FOODMODE|ALARM_SHOT|BEAUTY|OUTFOCUS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="1" special_mode_mask="FOODMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="1" special_mode_mask="ALARM_SHOT,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="1" special_mode_mask="BEAUTY,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="1" special_mode_mask="OUTFOCUS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Sports-->
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="SPORTS_SCENE">
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+	<ChromatixName sensor_resolution_index="1" special_mode_mask="ANIMATED_SCENE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Res2 3024x3024 Full-pixel 30fps-->
+    <!--snapShot- video, dual-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Capture ZSL / Video 4:3 30-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--OIS Capture-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--OIS LLS Capture-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_LLS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_LLS_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="OIS_LLS_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_lls_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_lls_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_lls_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Merged Capture-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="MERGED_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdroff.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdroff.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="MERGED_CAPTURE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdrauto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdrauto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="MERGED_CAPTURE,HDR">
+      <ISPCommon>libchromatix_imx260_common_merged.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_merged_hdron.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_merged_hdron.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_merged_hdron.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Video UHD 30-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_UHD">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_UHD,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_UHD,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_uhd30_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_uhd30_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video FHD 30-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_1080P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_1080P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_1080P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video HD 30-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_720P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_720P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_720P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode FHD-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_1080P,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode HD-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_720P,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Fast Motion-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="FAST_MOTION">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdrauto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdrauto.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdrauto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdrauto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdrauto.so</CPPVideo>
+    </ChromatixName>
+    <!--Promode Auto-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_auto.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_auto.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_auto.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Manual-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_manual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_manual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_manual.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Promode Long Exposure
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_LONG">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_LONG,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_promode_long.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    -->
+    <!--Offline-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE_US">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE_US,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_promode.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PROMODE_MANUAL,OFFLINE_DS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_promode_long.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_promode.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_promode_long.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_promode_long.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Panorama-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PANORAMA">
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+    <!--Dual Capture-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="PIP">
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_snapshot_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_snapshot_dual.so</CPPVideo>
+    </ChromatixName>
+    <!--Video VGA 30-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_2_4">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_vga_hdroff.so</ISPPreview>
+	  <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_2_4,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_2_4,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Dual Mode VGA-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="DIM_2_4,PIP">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="VIDEO_COLLAGE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="VIDEO_COLLAGE,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="VIDEO_COLLAGE,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Virtual Shot-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="MULTIVIEW">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_video_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_video_hdroff.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_video_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_video_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Video Collage-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="LIVE_BROADCAST">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview_dual.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview_dual.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_dual.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_dual.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_preview_dual.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_preview_dual.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Food Mode / Rear-cam selfie-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="FOODMODE|ALARM_SHOT|BEAUTY|OUTFOCUS">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="2" special_mode_mask="FOODMODE,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="2" special_mode_mask="ALARM_SHOT,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="2" special_mode_mask="BEAUTY,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+		<ChromatixName sensor_resolution_index="2" special_mode_mask="OUTFOCUS,OIS_CAPTURE">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <ISPPreview>libchromatix_imx260_snapshot_hdroff.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Sports-->
+    <ChromatixName sensor_resolution_index="2" special_mode_mask="SPORTS_SCENE">
+      <ISPPreview>libchromatix_imx260_panorama.so</ISPPreview>
+      <CPPPreview>libchromatix_imx260_cpp_panorama.so</CPPPreview>
+      <ISPSnapshot>libchromatix_imx260_panorama.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_imx260_cpp_panorama.so</CPPSnapshot>
+    </ChromatixName>
+	<ChromatixName sensor_resolution_index="2" special_mode_mask="ANIMATED_SCENE">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_vga_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_vga_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Res3 4032x2268 4k2k 60fps-->
+    <!--FHD(60FPS)-->
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_fhd60_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_fhd60_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_hfr_60_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Video FHD 60-->
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="DIM_1080P">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_fhd60_hdroff.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_fhd60_hdroff.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_fhd60_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="DIM_1080P,HDR_AUTO">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_fhd60_hdrauto.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_fhd60_hdrauto.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_fhd60_hdrauto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdrauto.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="3" special_mode_mask="DIM_1080P,HDR">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <CPPPreview>libchromatix_imx260_cpp_video_fhd60_hdron.so</CPPPreview>
+      <ISPVideo>libchromatix_imx260_video_fhd60_hdron.so</ISPVideo>
+      <CPPVideo>libchromatix_imx260_cpp_video_fhd60_hdron.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdron.so</CPPLiveshot>
+    </ChromatixName>
+    <!--Res4 2016x1512 WVGA (4:3) 30fps-->
+    <!--VT-call-->
+    <ChromatixName sensor_resolution_index="4" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_video_vtcall.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_vtcall.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_video_vtcall.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_vtcall.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Res5 2016x1134 HD (16:9) 30fps-->
+    <!--VT,LiveBroadcasting-->
+    <ChromatixName sensor_resolution_index="5" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_video_vtcall.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_vtcall.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_video_vtcall.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_vtcall.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Res6 2016x1134 FHD(16:9) 120fps-->
+    <!--slowmotion(120fps)-->
+    <ChromatixName sensor_resolution_index="6" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hfr120.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_video_hfr120.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hfr120.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Res7 2016x1134 HD (16:9) 240fps-->
+    <!--slowmotion(240fps)-->
+    <ChromatixName sensor_resolution_index="7" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hfr240.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_video_hfr240.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hfr240.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Res8 1514x1514 WVGA (4:3) 30fps-->
+    <!--VT-->
+    <ChromatixName sensor_resolution_index="8" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common_video.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_video_vtcall.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_vtcall.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_video_vtcall.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_vtcall.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+    <!--Res9 1008x756 WVGA (4:3) 120fps-->
+    <!--Fast AEC-->
+    <ChromatixName sensor_resolution_index="9" special_mode_mask="0">
+      <ISPCommon>libchromatix_imx260_common.so</ISPCommon>
+      <PostProc>libchromatix_imx260_postproc.so</PostProc>
+      <ISPPreview>libchromatix_imx260_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_imx260_snapshot_hdroff.so</ISPSnapshot>
+      <ISPVideo>libchromatix_imx260_video_hdroff.so</ISPVideo>
+      <CPPPreview>libchromatix_imx260_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_imx260_cpp_snapshot_hdroff.so</CPPSnapshot>
+      <CPPVideo>libchromatix_imx260_cpp_video_hdroff.so</CPPVideo>
+      <CPPLiveshot>libchromatix_imx260_cpp_liveshot_hdroff.so</CPPLiveshot>
+      <A3Preview>libchromatix_imx260_zsl_preview_lc898212xd.so</A3Preview>
+      <A3Video>libchromatix_imx260_zsl_video_lc898212xd.so</A3Video>
+    </ChromatixName>
+  </ResolutionChromatixInfo>
+</ChromatixConfigurationRoot>

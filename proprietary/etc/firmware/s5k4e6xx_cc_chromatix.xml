@@ -1,0 +1,372 @@
+<!--
+  Copyright (c) 2015 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!--
+CommonChromatixInfo:
+	CommonChromatixInfo is the information about chromatix needed for
+		various use cases.
+	Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+		3A and SW PostProc.
+	Entries in this node are common for all sensor modes.
+
+ResolutionChromatixInfo:
+	ResolutionChromatixInfo is the information about chromatix needed for
+		various use cases.
+	Ex:- Preview, Snapshot, ZSL, HFR, HDR, Video, Liveshot for ISP, CPP,
+		3A and SW PostProc.
+	Entries in this node are specific to sensor resolution.
+
+ChromatixName:
+	Contains the list of chromatix names for all modules.
+	special_mode_mask:
+		It is the bit mask for special modes, which is used for
+			chromatix selection.
+		Special modes can be any mode that needs a special chromatix.
+		Ex:- scene mode, DZOOM mode, OIS capture mode, flash mode
+		This is applicable for CommonChromatixInfo and
+			ResolutionChromatixInfo.
+		special_mode_mask="0" means none of the special modes are
+			selected.
+	sensor_resolution_index:
+		It is the sensor resolution index for which chromatix libraries
+			will be choosen.
+		It is applicable only in ResolutionChromatixInfo.
+
+ISPCommon :
+	Common tuning library name for ISP
+ISPPreview :
+	Preview tuning library name for ISP
+ISPSnapshot :
+	Snapshot tuning library name for ISP
+CPPCommon :
+	Common tuning library name for CPP
+CPPPreview :
+	Preview tuning library name for CPP
+CPPSnapshot :
+	Snapshot tuning library name for CPP
+CPPLiveshot :
+	Liveshot tuning library name for CPP
+PostProc :
+	Tuning library name for postproc module
+A3Preview :
+	Preview tuning library for 3A
+A3Video :
+	Video tuning library for 3A
+
+Order of Resolution Pick:
+	Assume the current sensor mode is "r" and special mode mask is "s".
+	Chromatix for a module and type is choosen in this order till we find a
+		valid chroamtix file name or else NULL is returned.
+	1) From ResolutionChromatixInfo node for which sensor_resolution_index
+		is "r" and special_mode_mask is "s".
+	2) From CommonChromatixInfo node for which special_mode_mask is "s".
+	3) From ResolutionChromatixInfo node for which sensor_resolution_index
+		is "r" and special_mode_mask is "0".
+	4) From CommonChromatixInfo node for which special_mode_mask is "0".
+	5) NULL is returned if we dont find in any of the above cases.
+
+special_mode_mask values:
+	SENSOR_SPECIAL_MODE_NONE = 0,
+	SENSOR_SPECIAL_MODE_FLASH = 1,
+	SENSOR_SPECIAL_MODE_ZOOM_UPSCALE = 2,
+	SENSOR_SPECIAL_MODE_ZOOM_DOWNSCALE = 4,
+	SENSOR_SPECIAL_MODE_OIS_CAPTURE = 8,
+-->
+
+<ChromatixConfigurationRoot>
+  <CommonChromatixInfo>
+    <ChromatixName special_mode_mask="0">
+      <ISPCommon>libchromatix_s5k4e6xx_cc_common.so</ISPCommon>
+      <PostProc>libchromatix_s5k4e6xx_cc_postproc.so</PostProc>
+    </ChromatixName>
+  </CommonChromatixInfo>
+  <ResolutionChromatixInfo>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="0">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot.so</ISPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video.so</ISPVideo>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot.so</CPPSnapshot>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <A3Preview>libchromatix_s5k4e6xx_cc_zsl_preview_ad5816g.so</A3Preview>
+      <A3Video>libchromatix_s5k4e6xx_cc_zsl_video_ad5816g.so</A3Video>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="WIDE_SELFIE">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_wide_selfie.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_wide_selfie.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_preview_wide_selfie.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="MULTIVIEW">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_multiview.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_multiview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_preview_multiview.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,SMART_STAY">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_smart_stay.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_smart_stay.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_preview_smart_stay.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,PIP">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_pip.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_pip.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_preview_pip.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,VT">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_vt.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_vt.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_vt.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,VT_HD">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_vt_hd.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_vt_hd.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_vt_hd.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="VT">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_vt.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_vt.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_vt.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="VT_HD">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_vt_hd.so</ISPPreview>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_vt_hd.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_vt_hd.so</CPPSnapshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_hdr.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_hdr.so</ISPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr.so</ISPVideo>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_hdr.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_hdr.so</CPPSnapshot>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_hdr_auto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_hdr_auto.so</ISPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr_auto.so</ISPVideo>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_hdr_auto.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_hdr_auto.so</CPPSnapshot>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPLiveshot>
+    </ChromatixName>
+    <!--ANIMATED-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,ANIMATED_SCENE">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,ANIMATED_SCENE,HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,ANIMATED_SCENE,HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPLiveshot>
+    </ChromatixName>  	
+    <!--Video WGA 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPSnapshot>    
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPSnapshot>    
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA_hdr.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPLiveshot>
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_2_4,HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPSnapshot>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPSnapshot>    
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_VGA_hdr_auto.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_VGA_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPLiveshot>
+    </ChromatixName>        
+    <!--Video HD 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPPreview>	
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPSnapshot>	 	  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P,HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_hdr.so</ISPPreview>		
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_hdr.so</CPPPreview>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPSnapshot>	  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_720P,HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_hdr_auto.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_hdr_auto.so</CPPPreview>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr_auto.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPSnapshot>	  
+    </ChromatixName>    
+    <!--Video FHD 30-->
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video.so</ISPPreview>		
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPPreview>	
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPSnapshot>	 	  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P,HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_hdr.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_hdr.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr.so</CPPSnapshot>	  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_1080P,HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_hdr_auto.so</ISPPreview>		
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_hdr_auto.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_hdr_auto.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_liveshot_hdr_auto.so</CPPSnapshot>		  
+    </ChromatixName>    
+    <!--Video QHD 30-->	
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_QHD.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_QHD.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_QHD.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_QHD.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD.so</CPPSnapshot>		  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD,HDR">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_QHD_hdr.so</ISPPreview>		
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr.so</CPPPreview>	
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_QHD_hdr.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr.so</CPPSnapshot>		  
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="DIM_UHD,HDR_AUTO">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_video_QHD_hdr_auto.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr_auto.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_QHD_hdr_auto.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr_auto.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr_auto.so</CPPLiveshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_video_QHD_hdr_auto.so</CPPSnapshot>		  
+    </ChromatixName>
+    <!--Resolution mode-->	
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_LOW,SNAPSHOT_FRONT_DIM_LOW,VIDEO_FRONT_DIM_LOW">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_low.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_low.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_low.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_low.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_low.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_low.so</CPPSnapshot>			
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_LOW,SNAPSHOT_FRONT_DIM_LOW,VIDEO_FRONT_DIM_HIGH">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_low.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_low.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_high.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_high.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_low.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_low.so</CPPSnapshot>		
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_LOW,SNAPSHOT_FRONT_DIM_HIGH,VIDEO_FRONT_DIM_LOW">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_low.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_low.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_low.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_low.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_high.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_high.so</CPPSnapshot>		
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_LOW,SNAPSHOT_FRONT_DIM_HIGH,VIDEO_FRONT_DIM_HIGH">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_low.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_low.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_high.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_high.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_high.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_high.so</CPPSnapshot>		
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_HIGH,SNAPSHOT_FRONT_DIM_LOW,VIDEO_FRONT_DIM_LOW">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_high.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_high.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_low.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_low.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_low.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_low.so</CPPSnapshot>		
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_HIGH,SNAPSHOT_FRONT_DIM_LOW,VIDEO_FRONT_DIM_HIGH">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_high.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_high.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_high.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_high.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_low.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_low.so</CPPSnapshot>		
+    </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_HIGH,SNAPSHOT_FRONT_DIM_HIGH,VIDEO_FRONT_DIM_LOW">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_high.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_high.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_low.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_low.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_high.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_high.so</CPPSnapshot>		
+      </ChromatixName>
+    <ChromatixName sensor_resolution_index="0" special_mode_mask="PREVIEW_FRONT_DIM_HIGH,SNAPSHOT_FRONT_DIM_HIGH,VIDEO_FRONT_DIM_HIGH">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview_resolution_high.so</ISPPreview>	
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview_high.so</CPPPreview>		
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video_resolution_high.so</ISPVideo>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video_high.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot_resolution_high.so</ISPSnapshot>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot_high.so</CPPSnapshot>		
+    </ChromatixName>	
+    <ChromatixName sensor_resolution_index="1" special_mode_mask="0">
+      <ISPPreview>libchromatix_s5k4e6xx_cc_preview.so</ISPPreview>
+      <ISPSnapshot>libchromatix_s5k4e6xx_cc_snapshot.so</ISPSnapshot>
+      <ISPVideo>libchromatix_s5k4e6xx_cc_video.so</ISPVideo>
+      <CPPPreview>libchromatix_s5k4e6xx_cc_cpp_preview.so</CPPPreview>
+      <CPPSnapshot>libchromatix_s5k4e6xx_cc_cpp_snapshot.so</CPPSnapshot>
+      <CPPVideo>libchromatix_s5k4e6xx_cc_cpp_video.so</CPPVideo>
+      <CPPLiveshot>libchromatix_s5k4e6xx_cc_cpp_liveshot.so</CPPLiveshot>
+      <A3Preview>libchromatix_s5k4e6xx_cc_zsl_preview_ad5816g.so</A3Preview>
+      <A3Video>libchromatix_s5k4e6xx_cc_zsl_video_ad5816g.so</A3Video>
+    </ChromatixName>
+  </ResolutionChromatixInfo>
+</ChromatixConfigurationRoot>
