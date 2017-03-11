@@ -20,6 +20,18 @@ LOCAL_PATH := $(call my-dir)
 ifeq ($(TARGET_DEVICE),hero2qltechn)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libsdm-disp-apis
+LOCAL_MODULE_OWNER := samsung
+LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libsdm-disp-apis.so
+LOCAL_SRC_FILES_32 := proprietary/vendor/lib/libsdm-disp-apis.so
+LOCAL_MULTILIB := both
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_PROPRIETARY_MODULE := true
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libtime_genoff
 LOCAL_MODULE_OWNER := samsung
 LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libtime_genoff.so
@@ -43,6 +55,8 @@ LOCAL_MODULE_SUFFIX := .apk
 include $(BUILD_PREBUILT)
 
 
+$(shell mkdir -p $(PRODUCT_OUT)/system/vendor/lib/egl && pushd $(PRODUCT_OUT)/system/vendor/lib > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
+$(shell mkdir -p $(PRODUCT_OUT)/system/vendor/lib64/egl && pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
 ifeq ($(LOCAL_PATH)/radio, $(wildcard $(LOCAL_PATH)/radio))
 
 RADIO_FILES := $(wildcard $(LOCAL_PATH)/radio/*)
