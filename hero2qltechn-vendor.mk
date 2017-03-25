@@ -18,7 +18,6 @@
 PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/app/ImsSettings/ImsSettings.apk:system/app/ImsSettings/ImsSettings.apk \
     vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/07010000000000000000000000000000.tlbin:system/app/mcRegistry/07010000000000000000000000000000.tlbin \
-    vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/08880000000000000000000000000000.tlbin:system/app/mcRegistry/08880000000000000000000000000000.tlbin \
     vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/ffffffff000000000000000000000004.tlbin:system/app/mcRegistry/ffffffff000000000000000000000004.tlbin \
     vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/ffffffffd00000000000000000000004.tlbin:system/app/mcRegistry/ffffffffd00000000000000000000004.tlbin \
     vendor/samsung/hero2qltechn/proprietary/app/mcRegistry/ffffffffd00000000000000000000014.tlbin:system/app/mcRegistry/ffffffffd00000000000000000000014.tlbin \
@@ -48,7 +47,6 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/hero2qltechn/proprietary/bin/msm_irqbalance:system/bin/msm_irqbalance \
     vendor/samsung/hero2qltechn/proprietary/bin/netmgrd:system/bin/netmgrd \
     vendor/samsung/hero2qltechn/proprietary/bin/pm-service:system/bin/pm-service \
-    vendor/samsung/hero2qltechn/proprietary/bin/qfipsverify:system/bin/qfipsverify \
     vendor/samsung/hero2qltechn/proprietary/bin/qmuxd:system/bin/qmuxd \
     vendor/samsung/hero2qltechn/proprietary/bin/qseecom_sample_client:system/bin/qseecom_sample_client \
     vendor/samsung/hero2qltechn/proprietary/bin/qseecom_security_test:system/bin/qseecom_security_test \

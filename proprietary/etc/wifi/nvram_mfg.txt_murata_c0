@@ -1,10 +1,8 @@
-#MURATA Type-1JJ BCM4359 C0 WLCSP module, 2015.12.18 Release.
-#Test FW version :  DIN07T48RC50_REL_9_75_116_MFG
-#bcm943596SSmurmod_1JJ_BTsLNA_1218.txt-- by Murata, based on bcm943596SSmurmod_1JJ_BTsLNA.txt
+#bcm943596SSmurmod_1JJ_09282015_mdfy_PAparam_10062015_v6.txt -- 10/6/2015 by Murata, based on bcm943596SSmurmod_1JJ_09282015.txt, Changed PAparam.
 # BCM43596 Murata WLCSPSS module with iPA, eLNA front-end configuration
 NVRAMRev=$Rev: 522729 $
 sromrev=11
-boardrev=0x1701
+boardrev=0x1100
 boardtype=0x07c6
 boardflags=0x10401001
 boardflags2=0x00800000
@@ -14,39 +12,27 @@ macaddr=00:90:4c:12:d0:01
 ccode=0
 regrev=0
 antswitch=0
-vendid=0x14e4
-devid=0x4415
-manfid=0x2d0
-
-# Two Range TSSI enable
 tworangetssi2g=1
 tworangetssi5g=1
-
-# Low Power Range calibration ¸¸ enable
 lowpowerrange2g=0
 lowpowerrange5g=0
-
 # Low Power Range start value: 0dBm
 olpc_thresh2g=0
 olpc_thresh5g=0
-
-# Power detector parameter
 AvVmid_c0=2,130,2,130,2,130,2,130,2,130
 AvVmid_c1=2,130,2,130,2,130,2,130,2,130
-
-# Spectrum mask parameter
-# 0: disabled /  1: mild shaping  /  2: moderate shaping  / 3: strong shaping  /  4: optimized for BCM4359
+vendid=0x14e4
 fdss_level_2g=5,5
-fdss_level_5g=5,5
+fdss_level_5g=4,4
 fdss_interp_en=1
-
-
-# HW/Board related params
+devid=0x4415
+manfid=0x2d0
 #prodid=0x052e
 nocrc=1
 btc_mode=1
 btcdyn_flags=0x0
 xtalfreq=37400
+ocl=1
 rxgains2gelnagaina0=2
 rxgains2gtrisoa0=7
 rxgains2gtrelnabypa0=1
@@ -87,55 +73,42 @@ extpagain5g=2
 tempthresh=255
 tempoffset=255
 rawtempsense=0x1ff
-
-swctrlmap_2g=0x00000808,0x30300000,0x10100000,0x023010,0x1ff
-swctrlmapext_2g=0x00000000,0x00000000,0x00000000,0x000000,0x001
-swctrlmap_5g=0x00004040,0x80800000,0x80800000,0x000000,0x1c8
-swctrlmapext_5g=0x00000000,0x01010000,0x00000000,0x000000,0x001
-fem_table_init_val=0x10100000,0x80800000
-
 # 2G Two Range PaParams
-pa2ga0=-127,8670,-963
-pa2ga1=-120,8733,-972
-pa2ga2=-213,4627,-605
-pa2ga3=-209,4823,-632
+pa2ga0=-159,7858,-899
+pa2ga1=-170,7597,-887
+pa2ga2=-224,4347,-567
+pa2ga3=-224,4392,-571
 # 5G Two Range PaParams
-pa5ga0=-105,8063,-939,-101,8241,-955,-84,8677,-1003,-117,7950,-949
-pa5ga1=-39,9275,-1033,-71,8818,-1006,-63,8802,-996,-125,7744,-913
-pa5ga2=-142,5636,-769,-151,5442,-741,-119,6213,-837,-119,6437,-872
-pa5ga3=-139,5773,-789,-119,6180,-845,-122,6143,-839,-67,7242,-983
-
-# Target Power Table offset
-maxp2ga0=84
-maxp2ga1=84
-maxp5ga0=76,77,76,78
-maxp5ga1=77,77,75,79
+pa5ga0=-115,8157,-968,-101,8479,-999,-91,8401,-992,-96,8217,-981
+pa5ga1=-113,7755,-927,-111,7864,-935,-113,8009,-946,-108,7695,-928
+pa5ga2=-176,5104,-702,-176,5092,-700,-175,5092,-700,-175,5056,-698
+pa5ga3=-160,5373,-751,-156,5418,-757,-162,5444,-746,-162,5186,-728
+maxp2ga0=74
+maxp2ga1=74
+maxp5ga0=74,74,74,74
+maxp5ga1=74,74,74,74
 subband5gver=0x4
 paparambwver=3
-
-
-# BLR tuned PD offsets for CCK/40/80
-cckpwroffset0=2
-cckpwroffset1=3
-pdoffset40ma0=0x3112
-pdoffset40ma1=0x3222
-pdoffset80ma0=0x0ef0
-pdoffset80ma1=0x000f
+cckpwroffset0=3
+cckpwroffset1=2
+pdoffset40ma0=0x3343
+pdoffset80ma0=0x0000
+pdoffset40ma1=0x3551
+pdoffset80ma1=0x0000
 cckbw202gpo=0
 cckbw20ul2gpo=0
-mcsbw202gpo=0xAA664444
-
-dot11agofdmhrbw202gpo=0x7666
-ofdmlrbw202gpo=0x0044
-mcsbw205glpo=0x66442222
-mcsbw405glpo=0xCCB86666
-mcsbw805glpo=0xDDCA9998
-mcsbw205gmpo=0x66442222
-mcsbw405gmpo=0xCCB86666
-mcsbw805gmpo=0xDDCAAAA8
-mcsbw205ghpo=0x66442222
-mcsbw405ghpo=0xCCB88886
-mcsbw805ghpo=0xDDCA9998
+mcsbw202gpo=0xAA886664
+dot11agofdmhrbw202gpo=0x6666
+ofdmlrbw202gpo=0x0022
+mcsbw205glpo=0x88866662
+mcsbw405glpo=0xAAA88884
+mcsbw805glpo=0xCCCAAAA6
+mcsbw205gmpo=0x88866662
+mcsbw405gmpo=0xAAA88884
+mcsbw805gmpo=0xCCCAAAA6
+mcsbw205ghpo=0x88866662
+mcsbw405ghpo=0xAAA88884
+mcsbw805ghpo=0xCCCAAAA6
 mcslr5glpo=0x0000
 mcslr5gmpo=0x0000
 mcslr5ghpo=0x0000
@@ -155,13 +128,9 @@ sb20in80and160lr5ghpo=0x0
 sb40and80lr5ghpo=0x0
 dot11agduphrpo=0x0
 dot11agduplrpo=0x0
-
-
-# Temperature based calibration related params
 phycal_tempdelta=15
 temps_period=15
 temps_hysteresis=15
-
 #ltecxmux=0
 #ltecxpadnum=0x0908
 #ltecxfnsel=0x44
@@ -169,40 +138,34 @@ temps_hysteresis=15
 #OOB params
 #device_wake_opt=1
 host_wake_opt=0
+swctrlmap_2g=0x00000808,0x30300000,0x10100000,0x023010,0x1ff
+swctrlmapext_2g=0x00000000,0x00000000,0x00000000,0x000000,0x001
+swctrlmap_5g=0x00004040,0x80800000,0x80800000,0x000000,0x1c8
+swctrlmapext_5g=0x00000000,0x01010000,0x00000000,0x000000,0x001
 muxenab=0x4
-
-# Tunings for RSSI reporting
-rssi_delta_2g_c0=-2,-4,-2,-4
-rssi_delta_2g_c1=-2,-4,-2,-4
-rssi_delta_5gl_c0=3,3,3,3,3,3
-rssi_delta_5gml_c0=3,3,3,3,3,3
-rssi_delta_5gmu_c0=0,3,0,3,0,3
-rssi_delta_5gh_c0=-2,3,-2,3,-2,3
-rssi_delta_5gl_c1=0,3,1,3,2,3
-rssi_delta_5gml_c1=0,3,1,3,2,3
-rssi_delta_5gmu_c1=-1,3,-1,3,-1,3
-rssi_delta_5gh_c1=-1,3,-1,3,-1,3
-
-#BLR tuned 2g power offsets for LTE filter
-powoffs2gtna0=2,-1,-1,2,2,1,0,0,1,1,3,1,1,2
-powoffs2gtna1=4,1,1,1,1,2,2,2,2,1,0,-1,-1,2
-
-powoffs5g20mtna0=-6,-6,-4,0,0,0,-6
-powoffs5g20mtna1=-6,-6,-4,0,0,0,-6
+rssi_delta_2g_c0=-2,3,-2,3
+rssi_delta_2g_c1=-1,3,-1,3
+rssi_delta_5gl_c0=-2,3,-2,2,-1,3
+rssi_delta_5gml_c0=-3,3,-2,2,-1,3
+rssi_delta_5gmu_c0=-5,2,-5,1,-4,2
+rssi_delta_5gh_c0=-5,1,-4,1,-4,1
+rssi_delta_5gl_c1=-4,0,-4,-1,-3,1
+rssi_delta_5gml_c1=-4,0,-3,-1,-3,1
+rssi_delta_5gmu_c1=-3,-1,-3,-1,-2,1
+rssi_delta_5gh_c1=-3,-1,-2,-1,-1,1
+powoffs2gtna0=-2,0,0,0,0,0,0,0,0,0,-2,-4,-5,-5
+powoffs2gtna1=-2,0,0,0,0,0,0,0,0,0,-2,-4,-5,-5
+#powoffs5g20mtna0=0,0,0,0,0,0
+#powoffs5g20mtna1=0,0,0,0,0,0
 #powoffs5g40mtna0=0,0,0,0
 #powoffs5g40mtna1=0,0,0,0
 #powoffs5g80mtna0=0,0,0,0
 #powoffs5g80mtna1=0,0,0,0
+fem_table_init_val=0x10100000,0x80800000
 ## Dynamic SAR control, need to be tuned
-dynamicsarctrl_2g=0xb0b0
-dynamicsarctrl_5g=0xa4a4
-#dynamicsarctrl_2g_2=0xb0b0
-#dynamicsarctrl_5g_2=0xa4a4
-
-# 11b CDD mode
-# 0: enabled  /  1: disabled, Antenna diversity
+#dynamicsarctrl_2g=0xffb0
+#dynamicsarctrl_5g=0xffa0
 cck_onecore_tx=1
-
 #ed_thresh2g=-63
 #ed_thresh5g=-63
 ## FCC power limit on ch12/13 ? FCC power limit
@@ -210,17 +173,3 @@ cck_onecore_tx=1
 #fccpwrch13=1
 #fccpwroverride=1
 
-#Enabling One Core Listen
-ocl=1
-
-#IMPLICIT_TXBF
-rpcal2g=41
-rpcal5gb0=200
-rpcal5gb1=87
-rpcal5gb2=82
-rpcal5gb3=218
-rpcal_phase2g=354
-rpcal_phase5gb0=142
-rpcal_phase5gb1=346
-rpcal_phase5gb2=4
-rpcal_phase5gb3=170
